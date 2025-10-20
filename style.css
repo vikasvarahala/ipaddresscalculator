@@ -134,22 +134,63 @@ td{
 }
 
 
- @media only screen and (max-width: 768px){
-    .main{
+  @media only screen and (max-width: 600px) {
+    .main {
+        flex-direction: column;
+        justify-content: flex-start; /* Start from the top */
+    }
 
+    .input {
+        width: 90%; /* Make input wider on mobile */
+        height: auto; /* Allow height to adjust content */
+        margin: 10px auto; /* Center the input block */
+    }
     
-        display: flex;
+    .result {
+        width: 90%; /* Make result wider */
+        height: auto; /* Allow height to adjust content */
+        margin: 10px auto; /* Center the result block */
+    }
+
+    .tabl {
+        width: 100%;
+        /* Adjust table for better mobile display, e.g., fewer columns or stack */
+    }
+    
+    th {
+        padding-left: 10px; /* Reduce padding for smaller screens */
+    }
+    
+    /* Ensure the container adapts to the stacked content height */
+    .container {
+        height: auto;
+        min-height: 100vh; /* Set a minimum height of the viewport height */
+    }
+}
+
+/* -- TABLET MEDIA QUERIES --
+    This original query is still useful for tablets and small desktops.
+*/
+@media only screen and (max-width: 768px) {
+    .main {
         flex-direction: column;
         justify-content: space-evenly;
     }
-    .result{
+    .input {
         width: 90%;
-        height: 50%;
+        margin: 10px auto;
     }
-    .tabl{
+    .result {
+        width: 90%;
+        height: auto; /* Better for mobile content */
+        margin: 10px auto;
+    }
+    .tabl {
         width: 95%;
     }
-    .container{
-        height: 180%;
+    .container {
+        height: auto; /* Critical fix: Use auto for height in mobile layout */
+        min-height: 100vh; /* Ensure it covers the screen */
     }
- }
+    
+}
