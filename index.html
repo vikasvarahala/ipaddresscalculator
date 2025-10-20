@@ -1,0 +1,247 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Document</title>
+</head>
+<link rel="stylesheet" href="style.css">
+<body>
+
+   
+    <div class="container">
+
+        <div class="head">
+            <h1> IP Address calculator </h1>
+        </div>
+    
+    
+<div class="main">
+
+<div class="left">
+     
+        <div class="input">
+            <h3>Enter your ip address :</h3>
+           <input class="inptext" id="inp" type="text" placeholder="Enter IP address" />
+
+           <button class="but" id="button1"  >
+            calculate
+           </button>
+
+          
+          
+            
+        </div>
+        
+</div>
+    
+
+    
+
+        
+        <div class="result">
+            <table class="tabl">
+                    <div class="headding">
+                        <h3>Information of Gvien IP Address</h3> 
+                    </div>
+                   
+                       
+                    
+                
+                
+                   
+                
+                <tr>
+                <th>
+                    Class 
+                </th>
+               <td id="class">
+
+               </td>
+                
+                </tr>
+                <tr>
+                    <th>Default Subnet Mask</th>
+                    <td id="subnet"></td>
+                </tr>
+                <tr>
+                    <th>
+                        Number of Networks
+                    </th>
+                    <td id="networks">
+
+                    </td>
+                </tr>
+                <tr>
+                    <th>Number of Hosts</th>
+                    <td id="hosts"></td>
+                </tr>
+                <tr>
+                    <th>
+                        Network Address
+                    </th>
+                    <td id="networkadd">
+
+                    </td>
+                </tr>
+                <tr>
+                    <th>
+                        Broad Cast
+                    </th>
+                    <td id="broadcast">
+                    
+                    </td>
+                </tr>
+                
+                 
+                    <tr>
+                    <th colspan="2">
+                        Binary Reprasentation :
+                    </th>
+                </tr>
+                
+                <td id="binarynum" colspan="2">
+
+                </td>
+            </tr>
+                
+            </table>
+            
+        </div>
+
+    </div>
+    </div>
+   
+       
+
+    </div>
+   <script>
+    let inp = document.getElementById("inp");
+const inputValue = inp.value;
+let divi = inputValue.split('.');
+let button1  = document.getElementById('button1');
+// let button2 = document.getElementById('button2');
+let binum = document.getElementById('binarynum');
+ function getValue() {
+            let inp = document.getElementById("inp");
+           let binum = document.getElementById('binarynum'); 
+            const inputValue = inp.value;
+            // alert("Input value: " + inputValue);
+            console.log(inputValue)
+            const divi = inputValue.split('.');
+            console.log(divi)
+            let n = divi[0];
+            console.log(n)
+
+            let numv = divi.map(
+                (str) => parseInt(str,10)
+);
+            let bina = numv.map(
+                num => num.toString(2).padStart(8, '0')
+            );
+
+            console.log(bina)
+
+            let clas = document.getElementById('class');
+            let subnet = document.getElementById('subnet');
+            let network = document.getElementById('networks');
+            let hosts = document.getElementById("hosts");
+            let networkadd = document.getElementById("networkadd");
+
+            let broadcast = document.getElementById("broadcast");
+
+            for (let i=0 ; i<numv.length;i++){ 
+                if(numv > 255)
+                {
+                    window.alert('Invalid ip address');
+                }
+            }
+
+            if(n<128)
+            {
+             
+                clas.innerHTML = ('<strong>A</strong>');
+                subnet.innerHTML = ('<strong>255.0.0.0</strong>');
+                network.innerHTML = ('<strong>2<sup>7</sup> - 2 : 126 </strong>');
+                hosts.innerHTML = ('<strong>2<sup>24</sup>-2 : 16,777,214');
+                networkadd.innerHTML = n+('<strong>.0.0.0');
+                broadcast.innerHTML = n+('<strong>.255.255.255</strong>');
+
+
+            }
+            else if (n >= 128 && n <= 191)
+            {
+                clas.innerHTML = ('<strong>B</strong>');
+                subnet.innerHTML = ('<strong>255.255.0.0</strong>');
+                network.innerHTML = ('<strong>2<sup>16-2</sup>  : 16,384 </strong>');
+                hosts.innerHTML = ('<strong>2<sup>16</sup>-2 : 65,534');
+                let n2 =  divi[1];
+                networkadd.innerHTML = n+('.')+n2+('<strong>.0.0');
+                broadcast.innerHTML = n+('.')+n2+('<strong>.255.255</strong>');
+
+            }
+            else if(n >= 192 && n <= 223)
+            {
+                 clas.innerHTML = ('<strong>C</strong>');
+                subnet.innerHTML = ('<strong>255.255.255.0</strong>');
+                network.innerHTML = ('<strong>2<sup>24-3</sup>  : 2,097,152 </strong>');
+                hosts.innerHTML = ('<strong>2<sup>8</sup>-2 : 254');
+                let n2 =  divi[1];
+                let n3 = divi[2];
+                networkadd.innerHTML = n+('.')+n2+('.')+n3+('<strong>.0');
+                broadcast.innerHTML = n+('.')+n2+('.')+n3+('<strong>.255</strong>');
+            }
+            else if(n >=224 && n<239)
+            {
+                clas.innerHTML = ('<strong>D</strong>');
+                subnet.innerHTML = ('<strong>for streaming</strong>');
+                network.innerHTML = ('<strong>for streaming </strong>');
+                hosts.innerHTML = ('<strong>for streaming</strong>');
+                 networkadd.innerHTML = ('<strong>--</strong>');
+                broadcast.innerHTML = ('<strong>--</strong>');
+            }
+            else if(n >=240 && n<=255)
+            {
+                clas.innerHTML = ('<strong>E</strong>');
+                 subnet.innerHTML = ('<strong>Experimental</strong>');
+                network.innerHTML = ('<strong>Experimental </strong>');
+                hosts.innerHTML = ('<strong>Experimental</strong>');
+                 networkadd.innerHTML = ('<strong>--</strong>');
+                broadcast.innerHTML = ('<strong>--</strong>');
+            }
+            
+           binum.innerHTML = bina;
+ 
+
+        }
+
+
+document.addEventListener('keydown', function(event) {
+ 
+  if (event.key === 'Enter' || event.keyCode === 13) {
+   
+    window.scrollTo({
+      top: document.body.scrollHeight, 
+      behavior: 'smooth'
+    });
+  }
+});
+
+document.getElementById('button1').addEventListener('click', function() {
+    // Scroll to the bottom of the page
+    window.scrollTo({
+        top: document.body.scrollHeight, // The total height of the page content
+        behavior: 'smooth'               // Optional: for a smooth animation
+    });
+});
+
+
+document.addEventListener('keydown', getValue);
+button1.addEventListener('click',getValue);
+
+
+
+   </script>
+</body>
+
+</html>
